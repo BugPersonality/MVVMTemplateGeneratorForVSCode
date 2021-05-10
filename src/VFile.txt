@@ -1,0 +1,13 @@
+struct  %_ {
+    typealias didFetchSuccess = (%_)->()
+    typealias didFailWithError = (Error?) -> ()
+    
+    // Your Model Structure
+    var id : Int?
+    var name : Int?
+    
+    func didFetch(withSuccess: @escaping didFetchSuccess, withError: @escaping didFailWithError) {
+        withSuccess(%_())
+        withError(nil)
+    }
+}

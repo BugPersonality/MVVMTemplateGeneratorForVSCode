@@ -1,0 +1,35 @@
+import UIKit
+
+protocol %_ViewProtocol {
+    func viewWillPresent(data: %_)
+}
+
+class %_View: UIViewController, %_ViewProtocol {
+    
+    private var ui = %_UI()
+    var viewModel : %_ViewModel! {
+        willSet {
+            newValue.view = self
+        }
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        viewModel.fetchData()
+    }
+    
+    override func loadView() {
+        ui.delegate = self
+        view = ui
+    }
+    
+    func viewWillPresent(data: %_) {
+        ui.object = data
+    }
+}
+
+extension %_View : %_UIDelegate {
+    func uiDidSelect(object: %_) {
+        viewModel.didReceiveUISelect(object: object)
+    }
+}
